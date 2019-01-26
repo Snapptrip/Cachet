@@ -189,6 +189,11 @@ class Subscriber extends Model implements HasPresenter
         return $this->slack_webhook_url;
     }
 
+    public function routeNotificationForFarapayamak()
+    {
+        return $this->phone_number;
+    }
+
     /**
      * Get the presenter class.
      *
