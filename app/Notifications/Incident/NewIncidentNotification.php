@@ -20,6 +20,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Config;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 
+use CachetHQ\Cachet\Channels\FarapayamakMessage;
+use CachetHQ\Cachet\Channels\FarapayamakChannel;
+
 /**
  * This is the new incident notification class.
  *
@@ -136,5 +139,15 @@ class NewIncidentNotification extends Notification
                                     ]))
                                    ->footer(trans('cachet.subscriber.unsubscribe', ['link' => cachet_route('subscribe.unsubscribe', $notifiable->verify_code)]));
                     });
+    }
+
+    public function toFarapayamak($notifiable)
+    {
+        return FarapayamakMessage::create()
+            ->data([
+               'payload' => [
+                   'text' => 'test',
+               ]
+            ]);
     }
 }

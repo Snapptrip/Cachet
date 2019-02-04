@@ -19,6 +19,9 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 
+use CachetHQ\Cachet\Channels\FarapayamakMessage;
+use CachetHQ\Cachet\Channels\FarapayamakChannel;
+
 /**
  * This is the component status changed notification class.
  *
@@ -65,7 +68,7 @@ class ComponentStatusChangedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'nexmo', 'slack'];
+        return ['mail', 'nexmo', 'slack', FarapayamakChannel::class];
     }
 
     /**
@@ -152,4 +155,15 @@ class ComponentStatusChangedNotification extends Notification
                                    ->footer(trans('cachet.subscriber.unsubscribe', ['link' => cachet_route('subscribe.unsubscribe', $notifiable->verify_code)]));
                     });
     }
+
+    public function toFarapayamak($notifiable)
+    {
+        return FarapayamakMessage::create()
+            ->data([
+               'payload' => [
+                   'text' => 'test',
+               ]
+            ]);
+    }
+
 }

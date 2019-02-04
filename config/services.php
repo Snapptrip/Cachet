@@ -52,4 +52,10 @@ return [
         'secret' => env('MAIL_PASSWORD'),
     ],
 
+    'webhook' => [
+        'url' => env('WEBHOOK_URL'),
+        'username' => env('WEBHOOK_USERNAME'),
+        'password' => env('WEBHOOK_PASSWORD'),
+        'from' => env('WEBHOOK_FROM'),
+    ],
 ];
